@@ -2,12 +2,24 @@
 
 namespace Pbmedia\ScoreMatcher\Laravel\Models;
 
-use Pbmedia\ScoreMatcher\HasSpecifications;
-use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
+use Pbmedia\ScoreMatcher\Specifications;
 
 trait HasSpecificationsTrait
 {
-    use HasSpecifications;
+    protected $specifications;
+
+    public function specifications(): Specifications
+    {
+        if (!$this->specifications) {
+            $this->specifications = new Specifications;
+
+            $this->Scores->each(function ($scoreModel) {
+                $this->specifications->add($scoreModel->getAttributeScore());
+            });
+        }
+
+        return $this->specifications;
+    }
 
     public function Scores()
     {

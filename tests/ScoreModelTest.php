@@ -2,6 +2,7 @@
 
 namespace Pbmedia\ScoreMatcher\Laravel\Tests;
 
+use Pbmedia\ScoreMatcher\AttributeScore;
 use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
 use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
 use Pbmedia\ScoreMatcher\Laravel\Tests\ProductModel;
@@ -10,20 +11,20 @@ class ScoreModelTest extends TestCase
 {
     public function testScoreModel()
     {
-        $product = ProductModel::create([
+        $macbookProduct = ProductModel::create([
             'name' => 'MacBook',
         ]);
 
-        $attribute = AttributeModel::create([
+        $memoryAttribute = AttributeModel::create([
             'name' => 'Internal Memory',
         ]);
 
-        $score = new ScoreModel([
+        $memoryScore = new ScoreModel([
             'value' => 4096,
         ]);
 
-        $product->specifications()->set($attribute, $score);
-        $product->save();
+        $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
+        $macbookProduct->save();
 
         $this->seeInDatabase('score_matcher_scores', [
             'id'            => 1,
@@ -32,5 +33,87 @@ class ScoreModelTest extends TestCase
             'scorable_id'   => 1,
             'value'         => 4096,
         ]);
+
+        $this->assertCount(1, ScoreModel::all());
+
+        $attributeScore = ScoreModel::first()->getAttributeScore();
+
+        $this->assertInstanceOf(AttributeScore::class, $attributeScore);
+    }
+
+    public function testTwoScoreModels()
+    {
+        $macbookProduct = ProductModel::create([
+            'name' => 'MacBook',
+        ]);
+
+        $memoryAttribute = AttributeModel::create([
+            'name' => 'Internal Memory',
+        ]);
+
+        $memoryScore = new ScoreModel([
+            'value' => 4096,
+        ]);
+
+        $screenSizeAttribute = AttributeModel::create([
+            'name' => 'Screen size',
+        ]);
+
+        $screenScore = new ScoreModel([
+            'value' => 13.3,
+        ]);
+
+        $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
+        $macbookProduct->specifications()->add(new AttributeScore($screenSizeAttribute, $screenScore));
+        $macbookProduct->save();
+
+        $this->seeInDatabase('score_matcher_scores', [
+            'id'            => 1,
+            'attribute_id'  => 1,
+            'scorable_type' => app(ProductModel::class)->getMorphClass(),
+            'scorable_id'   => 1,
+            'value'         => 4096,
+        ]);
+
+        $this->seeInDatabase('score_matcher_scores', [
+            'id'            => 2,
+            'attribute_id'  => 2,
+            'scorable_type' => app(ProductModel::class)->getMorphClass(),
+            'scorable_id'   => 1,
+            'value'         => 13.3,
+        ]);
+
+        $this->assertCount(2, ScoreModel::all());
+    }
+
+    public function testUpdatedScores()
+    {
+        $macbookProduct = ProductModel::create([
+            'name' => 'MacBook',
+        ]);
+
+        $memoryAttribute = AttributeModel::create([
+            'name' => 'Internal Memory',
+        ]);
+
+        $memoryScore = new ScoreModel([
+            'value' => 4096,
+        ]);
+
+        $screenSizeAttribute = AttributeModel::create([
+            'name' => 'Screen size',
+        ]);
+
+        $screenScore = new ScoreModel([
+            'value' => 13.3,
+        ]);
+
+        $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
+        $macbookProduct->specifications()->set($screenSizeAttribute, $screenScore);
+        $macbookProduct->save();
+
+        $macbookProduct = $macbookProduct->fresh();
+
+        $this->assertEquals(2, $macbookProduct->specifications()->count());
     }
 }

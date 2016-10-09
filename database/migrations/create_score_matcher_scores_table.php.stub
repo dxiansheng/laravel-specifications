@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateScoreMatcherScoresTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('score_matcher_scores', function (Blueprint $table) {
+            $table->increments('id');
+            $table->morphs('scorable');
+            $table->integer('attribute_id')->unsigned();
+            $table->json('value');
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')
+                ->on('score_matcher_attributes');
+        });
+    }
+
+    public function down()
+    {
+        Schema::drop('score_matcher_scores');
+    }
+}

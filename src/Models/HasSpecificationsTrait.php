@@ -13,7 +13,7 @@ trait HasSpecificationsTrait
         if (!$this->specifications) {
             $this->specifications = new Specifications;
 
-            $this->Scores->each(function ($scoreModel) {
+            $this->getRelationValue('Scores')->each(function ($scoreModel) {
                 $this->specifications->add($scoreModel->getAttributeScore());
             });
         }

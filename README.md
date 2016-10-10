@@ -56,7 +56,7 @@ class Product extends Model {
 }
 ```
 
-Using the 'HasSpecificationsTrait' and 'CanBeSpecified' interface, you can add 'specifications' to your products. First add the interface and trait to the Eloquent model:
+Using the ```HasSpecificationsTrait``` and ```CanBeSpecified``` interface, you can add specifications to your products. First add the interface and trait to the Eloquent model:
 
 ``` php
 <?php
@@ -72,7 +72,7 @@ class Product extends Model implements CanBeSpecified {
 }
 ```
 
-Now think about the specifications you want to attach to your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database like this:
+Let's think about the specifications you want to attach to your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database like this:
 
 ``` php
 <?php
@@ -84,6 +84,30 @@ $diskCapacity = AttributeModel::create(['name' => 'Disk Capacity']);
 // or use the 'createWithName' helper method:
 
 $internalMemory = AttributeModel::createWithName('Internal Memory');
+```
+
+Now you can give your products 'scores':
+
+``` php
+<?php
+
+use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
+
+$macbookAir = Product::whereName('MacBook Air')->first();
+$macbookPro = Product::whereName('MacBook Pro')->first();
+
+$macbookAir->specifications()->set(
+    $diskCapacity, ScoreModel::withValue(4096)
+);
+
+$macbookPro->specifications()->set(
+    $diskCapacity, ScoreModel::withValue(8192)
+);
+
+// don't forget to save the products!
+
+$macbookAir->save();
+$macbookPro->save();
 ```
 
 ## Change log

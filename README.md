@@ -30,7 +30,7 @@ Add the service provider and facade to your ```app.php``` config file:
 
 'aliases' => [
     ...
-    'FFMpeg' => Pbmedia\ScoreMatcher\Laravel\ScoreMatcherFacade::class
+    'ScoreMatcher' => Pbmedia\ScoreMatcher\Laravel\ScoreMatcherFacade::class
     ...
 ];
 ```
@@ -44,8 +44,46 @@ php artisan migrate
 
 ## Usage
 
+Imagine you have an Eloquent model which represents products you sell:
+
 ``` php
-// soon...!
+<?php
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model {
+
+}
+```
+
+Using the 'HasSpecificationsTrait' and 'CanBeSpecified' interface, you can add 'specifications' to your products. First add the interface and trait to the Eloquent model:
+
+``` php
+<?php
+
+use Illuminate\Database\Eloquent\Model;
+use Pbmedia\ScoreMatcher\Interfaces\CanBeSpecified;
+use Pbmedia\ScoreMatcher\Laravel\Models\HasSpecificationsTrait;
+
+class Product extends Model implements CanBeSpecified {
+
+    use HasSpecificationsTrait;
+
+}
+```
+
+Now think about the specifications you want to attach to your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database like this:
+
+``` php
+<?php
+
+use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
+
+$diskCapacity = AttributeModel::create(['name' => 'Disk Capacity']);
+
+// or use the 'createWithName' helper method:
+
+$internalMemory = AttributeModel::createWithName('Internal Memory');
 ```
 
 ## Change log

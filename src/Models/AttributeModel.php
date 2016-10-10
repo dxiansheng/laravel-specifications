@@ -12,6 +12,11 @@ class AttributeModel extends Model implements Attribute
 
     protected $table = 'score_matcher_attributes';
 
+    public static function createWithName($name)
+    {
+        return static::create(compact('name'));
+    }
+
     public function getIdentifier()
     {
         if (!$this->exists) {

@@ -149,5 +149,9 @@ class ScoreModelTest extends TestCase
         $macbookProduct->specifications()->set($screenSizeAttribute, $bigScreenScore);
 
         $this->assertEquals(1, $macbookProduct->specifications()->count());
+
+        $scoreValue = $macbookProduct->specifications()->get($screenSizeAttribute)->getScoreValue();
+
+        $this->assertEquals(15.4, $scoreValue);
     }
 }

@@ -6,12 +6,40 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-score-matcher.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-score-matcher)
 [![Total Downloads](https://img.shields.io/packagist/dt/pbmedia/laravel-score-matcher.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-score-matcher)
 
+This Laravel package provides the ability to attach 'scores' to your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself.
+
 ## Install
 
 Via Composer
 
 ``` bash
 $ composer require pbmedia/laravel-score-matcher
+```
+
+Add the service provider and facade to your ```app.php``` config file:
+
+``` php
+
+// Laravel 5: config/app.php
+
+'providers' => [
+    ...
+    Pbmedia\ScoreMatcher\Laravel\ScoreMatcherServiceProvider::class,
+    ...
+];
+
+'aliases' => [
+    ...
+    'FFMpeg' => Pbmedia\ScoreMatcher\Laravel\ScoreMatcherFacade::class
+    ...
+];
+```
+
+Publish the migration files using the artisan CLI tool:
+
+``` bash
+php artisan vendor:publish --provider="Pbmedia\ScoreMatcher\Laravel\ScoreMatcherServiceProvider"
+php artisan migrate
 ```
 
 ## Usage

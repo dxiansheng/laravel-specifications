@@ -97,8 +97,10 @@ $macbookAir = Product::whereName('MacBook Air')->first();
 $macbookPro = Product::whereName('MacBook Pro')->first();
 
 $macbookAir->specifications()->set(
-    $diskCapacity, ScoreModel::withValue(4096)
+    $diskCapacity, new ScoreModel(['value' => 4096])
 );
+
+// or use the 'withValue' helper method:
 
 $macbookPro->specifications()->set(
     $diskCapacity, ScoreModel::withValue(8192)

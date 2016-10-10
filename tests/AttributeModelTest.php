@@ -2,6 +2,7 @@
 
 namespace Pbmedia\ScoreMatcher\Laravel\Tests;
 
+use Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException;
 use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
 
 class AttributeModelTest extends TestCase
@@ -18,5 +19,17 @@ class AttributeModelTest extends TestCase
         ]);
 
         $this->assertEquals(1, $attribute->getIdentifier());
+    }
+
+    /**
+     * @expectedException \Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException
+     **/
+    public function testNonExistingAttributeModel()
+    {
+        $attribute = new AttributeModel([
+            'name' => 'Internal Memory',
+        ]);
+
+        $attribute->getIdentifier();
     }
 }

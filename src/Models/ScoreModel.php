@@ -16,6 +16,11 @@ class ScoreModel extends Model implements Score
         'value' => 'json',
     ];
 
+    public static function withValue($value): ScoreModel
+    {
+        return new static(compact('value'));
+    }
+
     public function getValue()
     {
         return $this->value;

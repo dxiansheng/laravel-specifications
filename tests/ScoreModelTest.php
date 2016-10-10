@@ -86,6 +86,35 @@ class ScoreModelTest extends TestCase
         $this->assertCount(2, ScoreModel::all());
     }
 
+    public function testScoresWithFreshModel()
+    {
+        $macbookProduct = ProductModel::create([
+            'name' => 'MacBook',
+        ]);
+
+        $memoryAttribute = AttributeModel::create([
+            'name' => 'Internal Memory',
+        ]);
+
+        $memoryScore = new ScoreModel([
+            'value' => 4096,
+        ]);
+
+        $screenSizeAttribute = AttributeModel::create([
+            'name' => 'Screen size',
+        ]);
+
+        $screenScore = new ScoreModel([
+            'value' => 13.3,
+        ]);
+
+        $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
+        $macbookProduct->specifications()->add(new AttributeScore($screenSizeAttribute, $screenScore));
+        $macbookProduct->save();
+
+        $this->assertEquals(2, $macbookProduct->specifications()->count());
+    }
+
     public function testUpdatedScores()
     {
         $macbookProduct = ProductModel::create([
@@ -109,11 +138,16 @@ class ScoreModelTest extends TestCase
         ]);
 
         $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
-        $macbookProduct->specifications()->set($screenSizeAttribute, $screenScore);
+        $macbookProduct->specifications()->add(new AttributeScore($screenSizeAttribute, $screenScore));
         $macbookProduct->save();
 
-        $macbookProduct = $macbookProduct->fresh();
+        $bigScreenScore = new ScoreModel([
+            'value' => 15.4,
+        ]);
 
-        $this->assertEquals(2, $macbookProduct->specifications()->count());
+        $macbookProduct->specifications()->forget($memoryAttribute);
+        $macbookProduct->specifications()->set($screenSizeAttribute, $bigScreenScore);
+
+        $this->assertEquals(1, $macbookProduct->specifications()->count());
     }
 }

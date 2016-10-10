@@ -2,10 +2,13 @@
 
 namespace Pbmedia\ScoreMatcher\Laravel\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Pbmedia\ScoreMatcher\Specifications;
 
 trait HasSpecificationsTrait
 {
+    protected $scoreModelClass = ScoreModel::class;
+
     protected $specifications;
 
     public function specifications(): Specifications
@@ -21,9 +24,9 @@ trait HasSpecificationsTrait
         return $this->specifications;
     }
 
-    public function Scores()
+    public function Scores(): MorphMany
     {
-        return $this->morphMany(ScoreModel::class, 'scorable');
+        return $this->morphMany($this->scoreModelClass, 'scorable');
     }
 
     public static function bootHasSpecificationsTrait()
@@ -32,7 +35,7 @@ trait HasSpecificationsTrait
             $scoreIds = $canBeSpecified->Scores->pluck('id');
 
             if ($scoreIds->count() > 0) {
-                ScoreModel::whereIn('id', $scoreIds)->delete();
+                app($this->scoreModelClass)->whereIn('id', $scoreIds)->delete();
             }
 
             $attributScoreCollection = $canBeSpecified->specifications()->all();

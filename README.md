@@ -44,19 +44,7 @@ php artisan migrate
 
 ## Usage
 
-Imagine you have an Eloquent model which represents products you sell:
-
-``` php
-<?php
-
-use Illuminate\Database\Eloquent\Model;
-
-class Product extends Model {
-
-}
-```
-
-Using the ```HasSpecificationsTrait``` and ```CanBeSpecified``` interface, you can add specifications to your products. First add the interface and trait to the Eloquent model:
+Imagine you have an Eloquent model which represents products you sell. Using the ```HasSpecificationsTrait``` and ```CanBeSpecified``` interface, you can add specifications to your products. Add the interface and trait to the Eloquent model:
 
 ``` php
 <?php
@@ -72,7 +60,7 @@ class Product extends Model implements CanBeSpecified {
 }
 ```
 
-Let's think about the specifications you want to attach to your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database like this:
+Let's think about how you want to specify your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database using the ```AttributeModel```.
 
 ``` php
 <?php
@@ -86,7 +74,7 @@ $diskCapacity = AttributeModel::create(['name' => 'Disk Capacity in GB']);
 $internalMemory = AttributeModel::createWithName('Internal Memory in MB');
 ```
 
-Now you can give your products 'scores':
+With the ```ScoreModel```, you can attach a value to an ```AttributeModel``` and add it to the specifications of your product:
 
 ``` php
 <?php

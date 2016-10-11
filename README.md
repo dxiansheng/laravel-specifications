@@ -151,6 +151,48 @@ $attributeScore->getScoreValue();
 
 ```
 
+Now let's focus on the ```Matcher``` service. To use this you have to provide the service two kinds of data. Firstly, you have to add products to the service (or other models which implement the ```CanBeSpecified``` interface). Secondly, you have to add 'criteria', just like you've added to the products. Since the service itself also implement the ```CanBeSpecified``` interface, this works exactly the same by using the ```specifications()``` method.
+
+In this example we will be using the MacBook products again. Remember we've specified the Internal Memory of these products. Say you are looking for a notebook with 16 GB of Internal Memory, but unfortunately, these notebook do not exist in our database. The matcher service will sort the products based on which ones are most closely to the criteria.
+
+```php
+// the MacBook Air has 4096 MB of Internal Memory
+$macbookAir = Product::whereName('MacBook Air')->first();
+
+// the MacBook Pro has 8196 MB of Internal Memory
+$macbookPro = Product::whereName('MacBook Pro')->first();
+
+$matcher = new Matcher();
+
+$matcher->addCandidate($macbookAir);
+$matcher->addCandidate($macbookPro);
+
+// you can also use the 'addCandidates' helper method:
+
+$matcher->addCandidates($macbookAir, $macbookPro);
+$matcher->addCandidates([$macbookAir, $macbookPro]);
+
+// now provide some criteria.
+
+$memoryAttribute = AttributeModel::whereName('Internal Memory in MB')->first();
+$sixteenGigabytesScore = ScoreModel::withValue(16384);
+
+$matcher->specifications()->set(
+    $memoryAttribute,
+    $sixteenGigabytesScore
+);
+
+// now let the service do its magic!
+
+$products = $matcher->get();
+
+// prints the MacBook Pro
+var_dump($products[0]);
+
+// print the MacBook Air
+var_dump($products[1]);
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

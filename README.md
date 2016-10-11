@@ -6,7 +6,12 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-specifications.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-specifications)
 [![Total Downloads](https://img.shields.io/packagist/dt/pbmedia/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-specifications)
 
-This Laravel package provides the ability to 'specify' your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself.
+This Laravel package provides the ability to 'specify' your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself. Under the hood it uses the [framework-agnostic](https://github.com/pascalbaljetmedia/specifications) version of this package.
+
+## Requirements
+
+* Compatible with Laravel 5.3 and up.
+* PHP 7.0 and 7.1.
 
 ## Install
 
@@ -19,8 +24,6 @@ $ composer require pbmedia/laravel-specifications
 Add the service provider and facade to your ```app.php``` config file:
 
 ``` php
-// Laravel 5: config/app.php
-
 'providers' => [
     ...
     Pbmedia\Specifications\Laravel\SpecificationsServiceProvider::class,

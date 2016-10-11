@@ -72,7 +72,7 @@ class ScoreModel extends Model implements Score
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function Scorable(): MorphTo
+    public function Specifiable(): MorphTo
     {
         return $this->morphTo();
     }

@@ -10,7 +10,7 @@ class CreateScoreMatcherScoresTable extends Migration
     {
         Schema::create('score_matcher_scores', function (Blueprint $table) {
             $table->increments('id');
-            $table->morphs('scorable');
+            $table->morphs('specifiable');
             $table->integer('attribute_id')->unsigned();
             $table->json('value');
             $table->timestamps();

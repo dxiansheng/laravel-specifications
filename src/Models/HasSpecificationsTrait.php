@@ -47,7 +47,7 @@ trait HasSpecificationsTrait
      */
     public function Scores(): MorphMany
     {
-        return $this->morphMany($this->scoreModelClass, 'scorable');
+        return $this->morphMany($this->scoreModelClass, 'specifiable');
     }
 
     /**

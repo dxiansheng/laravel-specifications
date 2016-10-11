@@ -27,11 +27,11 @@ class ScoreModelTest extends TestCase
         $macbookProduct->save();
 
         $this->seeInDatabase('score_matcher_scores', [
-            'id'            => 1,
-            'attribute_id'  => 1,
-            'scorable_type' => app(ProductModel::class)->getMorphClass(),
-            'scorable_id'   => 1,
-            'value'         => 4096,
+            'id'               => 1,
+            'attribute_id'     => 1,
+            'specifiable_type' => app(ProductModel::class)->getMorphClass(),
+            'specifiable_id'   => 1,
+            'value'            => 4096,
         ]);
 
         $this->assertCount(1, ScoreModel::all());
@@ -68,19 +68,19 @@ class ScoreModelTest extends TestCase
         $macbookProduct->save();
 
         $this->seeInDatabase('score_matcher_scores', [
-            'id'            => 1,
-            'attribute_id'  => 1,
-            'scorable_type' => app(ProductModel::class)->getMorphClass(),
-            'scorable_id'   => 1,
-            'value'         => 4096,
+            'id'               => 1,
+            'attribute_id'     => 1,
+            'specifiable_type' => app(ProductModel::class)->getMorphClass(),
+            'specifiable_id'   => 1,
+            'value'            => 4096,
         ]);
 
         $this->seeInDatabase('score_matcher_scores', [
-            'id'            => 2,
-            'attribute_id'  => 2,
-            'scorable_type' => app(ProductModel::class)->getMorphClass(),
-            'scorable_id'   => 1,
-            'value'         => 13.3,
+            'id'               => 2,
+            'attribute_id'     => 2,
+            'specifiable_type' => app(ProductModel::class)->getMorphClass(),
+            'specifiable_id'   => 1,
+            'value'            => 13.3,
         ]);
 
         $this->assertCount(2, ScoreModel::all());

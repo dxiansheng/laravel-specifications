@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": "~7.0",
-        "pbmedia/specifications": "dev-master"
+        "pbmedia/specifications": "^1.0.0"
     },
     "require-dev": {
         "orchestra/testbench": "^3.3",

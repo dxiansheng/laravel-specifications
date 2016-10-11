@@ -30,7 +30,7 @@ Add the service provider and facade to your ```app.php``` config file:
 
 'aliases' => [
     ...
-    'Specifications' => Pbmedia\Specifications\Laravel\SpecificationsFacade::class
+    'SpecificationsMatcher' => Pbmedia\Specifications\Laravel\SpecificationsFacade::class
     ...
 ];
 ```
@@ -183,7 +183,11 @@ var_dump($products[0]);
 var_dump($products[1]);
 ```
 
-The MacBook Pro is the first element in the array since it comes closer to the given specifications than the MacBook Air. You can add as many specifications as you wish, each are treated equally important in the comparison.
+The MacBook Pro is the first element in the array since it comes closer to the given specifications than the MacBook Air. You can add as many specifications as you wish, each are treated equally important in the comparison. The ```Matcher``` service is also available throught the Laravel facade:
+
+```php
+$matcher = SpecificationsMatcher::addCandidates([$macbookAir, $macbookPro]);
+```
 
 ## Change log
 

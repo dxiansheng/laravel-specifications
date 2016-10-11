@@ -60,7 +60,7 @@ trait HasSpecificationsTrait
     public static function bootHasSpecificationsTrait()
     {
         static::saved(function (CanBeSpecified $canBeSpecified) {
-            $scoreIds = $canBeSpecified->Scores->pluck('id');
+            $scoreIds = $canBeSpecified->getRelationValue('Scores')->pluck('id');
 
             if ($scoreIds->count() > 0) {
                 app(static::$scoreModelClass)->whereIn('id', $scoreIds)->delete();

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
-use Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException;
-use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
+use Pbmedia\Specifications\Laravel\Exceptions\AttributeModelNotSavedException;
+use Pbmedia\Specifications\Laravel\Models\AttributeModel;
 
 class AttributeModelTest extends TestCase
 {
@@ -13,7 +13,7 @@ class AttributeModelTest extends TestCase
             'name' => 'Internal Memory',
         ]);
 
-        $this->seeInDatabase('score_matcher_attributes', [
+        $this->seeInDatabase('specifications_attributes', [
             'id'   => 1,
             'name' => 'Internal Memory',
         ]);
@@ -25,7 +25,7 @@ class AttributeModelTest extends TestCase
     {
         $attribute = AttributeModel::createWithName('Internal Memory');
 
-        $this->seeInDatabase('score_matcher_attributes', [
+        $this->seeInDatabase('specifications_attributes', [
             'id'   => 1,
             'name' => 'Internal Memory',
         ]);
@@ -34,7 +34,7 @@ class AttributeModelTest extends TestCase
     }
 
     /**
-     * @expectedException \Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException
+     * @expectedException \Pbmedia\Specifications\Laravel\Exceptions\AttributeModelNotSavedException
      **/
     public function testNonExistingAttributeModel()
     {

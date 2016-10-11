@@ -1,9 +1,9 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Models;
+namespace Pbmedia\Specifications\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Pbmedia\ScoreMatcher\Specifications;
+use Pbmedia\Specifications\Specifications;
 
 trait HasSpecificationsTrait
 {
@@ -17,7 +17,7 @@ trait HasSpecificationsTrait
     /**
      * Instance of Specifications.
      *
-     * @var \Pbmedia\ScoreMatcher\Specifications
+     * @var \Pbmedia\Specifications\Specifications
      */
     protected $specifications;
 
@@ -25,7 +25,7 @@ trait HasSpecificationsTrait
      * Returns a Specifications object with the Scores and Attributes
      * loaded from the database.
      *
-     * @return \Pbmedia\ScoreMatcher\Specifications
+     * @return \Pbmedia\Specifications\Specifications
      */
     public function specifications(): Specifications
     {

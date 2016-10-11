@@ -1,6 +1,6 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Exceptions;
+namespace Pbmedia\Specifications\Laravel\Exceptions;
 
 use RuntimeException;
 

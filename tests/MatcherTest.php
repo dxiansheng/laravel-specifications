@@ -1,11 +1,11 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
-use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
-use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
-use Pbmedia\ScoreMatcher\Laravel\Tests\ProductModel;
-use Pbmedia\ScoreMatcher\Matcher;
+use Pbmedia\Specifications\Laravel\Models\AttributeModel;
+use Pbmedia\Specifications\Laravel\Models\ScoreModel;
+use Pbmedia\Specifications\Laravel\Tests\ProductModel;
+use Pbmedia\Specifications\Matcher;
 
 class MatcherTest extends TestCase
 {

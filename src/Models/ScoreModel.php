@@ -1,12 +1,12 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Models;
+namespace Pbmedia\Specifications\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Pbmedia\ScoreMatcher\AttributeScore;
-use Pbmedia\ScoreMatcher\Interfaces\Score;
+use Pbmedia\Specifications\AttributeScore;
+use Pbmedia\Specifications\Interfaces\Score;
 
 class ScoreModel extends Model implements Score
 {
@@ -18,7 +18,7 @@ class ScoreModel extends Model implements Score
     /**
      * {@inheritDoc}
      */
-    protected $table = 'score_matcher_scores';
+    protected $table = 'specifications_scores';
 
     /**
      * {@inheritDoc}
@@ -30,7 +30,7 @@ class ScoreModel extends Model implements Score
     /**
      * Helper method to quickly instantiate a new ScoreModel.
      *
-     * @return \Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel
+     * @return \Pbmedia\Specifications\Laravel\Models\ScoreModel
      */
     public static function withValue($value): ScoreModel
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
 class ProductModelTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel;
+namespace Pbmedia\Specifications\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Pbmedia\ScoreMatcher\Matcher;
+use Pbmedia\Specifications\Matcher;
 
-class ScoreMatcherServiceProvider extends ServiceProvider
+class SpecificationsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,15 +14,15 @@ class ScoreMatcherServiceProvider extends ServiceProvider
     {
         $timestamp = date('Y_m_d_His', time());
 
-        if (!class_exists('CreateScoreMatcherAttributesTable')) {
+        if (!class_exists('CreateSpecificationsAttributesTable')) {
             $this->publishes([
-                __DIR__ . '/../resources/migrations/create_score_matcher_attributes_table.php.stub' => database_path('migrations/' . $timestamp . '_create_score_matcher_attributes_table.php'),
+                __DIR__ . '/../resources/migrations/create_specifications_attributes_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_attributes_table.php'),
             ], 'migrations');
         }
 
-        if (!class_exists('CreateScoreMatcherScoresTable')) {
+        if (!class_exists('CreateSpecificationsScoresTable')) {
             $this->publishes([
-                __DIR__ . '/../resources/migrations/create_score_matcher_scores_table.php.stub' => database_path('migrations/' . $timestamp . '_create_score_matcher_scores_table.php'),
+                __DIR__ . '/../resources/migrations/create_specifications_scores_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_scores_table.php'),
             ], 'migrations');
         }
     }
@@ -32,7 +32,7 @@ class ScoreMatcherServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('laravel-score-matcher', function ($app) {
+        $this->app->singleton('laravel-specifications-matcher', function ($app) {
             return $app->make(Matcher::class);
         });
     }

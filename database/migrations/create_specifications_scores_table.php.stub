@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScoreMatcherScoresTable extends Migration
+class CreateSpecificationsScoresTable extends Migration
 {
     public function up()
     {
-        Schema::create('score_matcher_scores', function (Blueprint $table) {
+        Schema::create('specifications_scores', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('specifiable');
             $table->integer('attribute_id')->unsigned();

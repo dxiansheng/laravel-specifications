@@ -1,10 +1,10 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel;
+namespace Pbmedia\Specifications\Laravel;
 
 use Illuminate\Support\Facades\Facade;
 
-class ScoreMatcherFacade extends Facade
+class SpecificationsFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class ScoreMatcherFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-score-matcher';
+        return 'laravel-specifications-matcher';
     }
 }

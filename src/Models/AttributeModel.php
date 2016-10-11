@@ -1,10 +1,10 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Models;
+namespace Pbmedia\Specifications\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Pbmedia\ScoreMatcher\Interfaces\Attribute;
-use Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException;
+use Pbmedia\Specifications\Interfaces\Attribute;
+use Pbmedia\Specifications\Laravel\Exceptions\AttributeModelNotSavedException;
 
 class AttributeModel extends Model implements Attribute
 {
@@ -16,12 +16,12 @@ class AttributeModel extends Model implements Attribute
     /**
      * {@inheritDoc}
      */
-    protected $table = 'score_matcher_attributes';
+    protected $table = 'specifications_attributes';
 
     /**
      * Helper method to quickly create a new AttributeModel.
      *
-     * @return \Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel
+     * @return \Pbmedia\Specifications\Laravel\Models\AttributeModel
      */
     public static function createWithName($name)
     {
@@ -31,7 +31,7 @@ class AttributeModel extends Model implements Attribute
     /**
      * Returns the key by which we can identify this model.
      *
-     * @throws \Pbmedia\ScoreMatcher\Laravel\Exceptions\AttributeModelNotSavedException
+     * @throws \Pbmedia\Specifications\Laravel\Exceptions\AttributeModelNotSavedException
      * @return int
      */
     public function getIdentifier()

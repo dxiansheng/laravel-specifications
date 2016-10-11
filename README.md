@@ -1,10 +1,10 @@
-# Laravel Score Matcher
+# Laravel Specifications
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/pbmedia/laravel-score-matcher.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-score-matcher)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/pbmedia/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-specifications)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/pascalbaljetmedia/laravel-score-matcher/master.svg?style=flat-square)](https://travis-ci.org/pascalbaljetmedia/laravel-score-matcher)
-[![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-score-matcher.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-score-matcher)
-[![Total Downloads](https://img.shields.io/packagist/dt/pbmedia/laravel-score-matcher.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-score-matcher)
+[![Build Status](https://img.shields.io/travis/pascalbaljetmedia/laravel-specifications/master.svg?style=flat-square)](https://travis-ci.org/pascalbaljetmedia/laravel-specifications)
+[![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-specifications.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-specifications)
+[![Total Downloads](https://img.shields.io/packagist/dt/pbmedia/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-specifications)
 
 This Laravel package provides the ability to 'specify' your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself.
 
@@ -13,7 +13,7 @@ This Laravel package provides the ability to 'specify' your Eloquent models. It 
 Via Composer
 
 ``` bash
-$ composer require pbmedia/laravel-score-matcher
+$ composer require pbmedia/laravel-specifications
 ```
 
 Add the service provider and facade to your ```app.php``` config file:
@@ -24,13 +24,13 @@ Add the service provider and facade to your ```app.php``` config file:
 
 'providers' => [
     ...
-    Pbmedia\ScoreMatcher\Laravel\ScoreMatcherServiceProvider::class,
+    Pbmedia\Specifications\Laravel\SpecificationsServiceProvider::class,
     ...
 ];
 
 'aliases' => [
     ...
-    'ScoreMatcher' => Pbmedia\ScoreMatcher\Laravel\ScoreMatcherFacade::class
+    'Specifications' => Pbmedia\Specifications\Laravel\SpecificationsFacade::class
     ...
 ];
 ```
@@ -38,7 +38,7 @@ Add the service provider and facade to your ```app.php``` config file:
 Publish the migration files using the artisan CLI tool:
 
 ``` bash
-php artisan vendor:publish --provider="Pbmedia\ScoreMatcher\Laravel\ScoreMatcherServiceProvider"
+php artisan vendor:publish --provider="Pbmedia\Specifications\Laravel\SpecificationsServiceProvider"
 php artisan migrate
 ```
 
@@ -47,11 +47,9 @@ php artisan migrate
 Imagine you have an Eloquent model which represents products you sell. Using the ```HasSpecificationsTrait``` and ```CanBeSpecified``` interface, you can add specifications to your products. Add the interface and trait to the Eloquent model:
 
 ``` php
-<?php
-
 use Illuminate\Database\Eloquent\Model;
-use Pbmedia\ScoreMatcher\Interfaces\CanBeSpecified;
-use Pbmedia\ScoreMatcher\Laravel\Models\HasSpecificationsTrait;
+use Pbmedia\Specifications\Interfaces\CanBeSpecified;
+use Pbmedia\Specifications\Laravel\Models\HasSpecificationsTrait;
 
 class Product extends Model implements CanBeSpecified {
 
@@ -63,9 +61,7 @@ class Product extends Model implements CanBeSpecified {
 Let's think about how you want to specify your product, for example 'disk capacity' and 'internal memory'. Let's store these into the database using the ```AttributeModel```.
 
 ``` php
-<?php
-
-use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
+use Pbmedia\Specifications\Laravel\Models\AttributeModel;
 
 $diskCapacity = AttributeModel::create(['name' => 'Disk Capacity in GB']);
 
@@ -77,9 +73,7 @@ $internalMemory = AttributeModel::createWithName('Internal Memory in MB');
 With the ```ScoreModel```, you can bind a value to an ```AttributeModel``` and add it to the specifications of your product:
 
 ``` php
-<?php
-
-use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
+use Pbmedia\Specifications\Laravel\Models\ScoreModel;
 
 $macbookAir = Product::whereName('MacBook Air')->first();
 $macbookPro = Product::whereName('MacBook Pro')->first();
@@ -103,7 +97,6 @@ $macbookPro->save();
 The ```specifications()``` method returns a ```Specifications``` class which has the following methods available:
 
 ```php
-
 // add a AttributeScore object to the specifications
 public function add(AttributeScore $attributeScore): Specifications;
 
@@ -128,13 +121,11 @@ public function all(): Collection;
 
 // count the number of AttributeScore objects
 public function count(): int;
-
 ```
 
 An ```AttributeScore``` object combines an Attribute object with a Score object and has only three methods available:
 
 ```php
-
 $diskCapacity = new AttributeModel(['name' => 'Disk Capacity in GB']);
 $size = new ScoreModel(['value' => 256]);
 
@@ -148,7 +139,6 @@ $attributeScore->getScore();
 
 // returns 256
 $attributeScore->getScoreValue();
-
 ```
 
 Now let's focus on the ```Matcher``` service. You have to provide the service with two kinds of data. Firstly, you have to add products to the service (or other models which implement the ```CanBeSpecified``` interface). Secondly, you have to add 'criteria', just like you've added to the products. Since the service itself also implement the ```CanBeSpecified``` interface, this works exactly the same by using the ```specifications()``` method.
@@ -215,8 +205,8 @@ If you discover any security related issues, please email pascal@pascalbaljetmed
 
 ## Credits
 
-- [Pascal Baljet][link-author]
-- [All Contributors][link-contributors]
+- [Pascal Baljet](https://github.com/pascalbaljet)
+- [All Contributors](../../contributors)
 
 ## License
 

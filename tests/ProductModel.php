@@ -1,10 +1,10 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
 use Illuminate\Database\Eloquent\Model;
-use Pbmedia\ScoreMatcher\Interfaces\CanBeSpecified;
-use Pbmedia\ScoreMatcher\Laravel\Models\HasSpecificationsTrait;
+use Pbmedia\Specifications\Interfaces\CanBeSpecified;
+use Pbmedia\Specifications\Laravel\Models\HasSpecificationsTrait;
 
 class ProductModel extends Model implements CanBeSpecified
 {

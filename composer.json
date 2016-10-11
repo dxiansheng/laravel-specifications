@@ -1,12 +1,15 @@
 {
-    "name": "pbmedia/laravel-score-matcher",
+    "name": "pbmedia/laravel-specifications",
     "type": "library",
-    "description": "Match scores with object attributes",
+    "description": "Specify your Eloquent models",
     "keywords": [
-        "Pbmedia",
-        "ScoreMatcher"
+        "Laravel",
+        "Eloquent",
+        "Specificable",
+        "Scores",
+        "Specifications"
     ],
-    "homepage": "https://github.com/pascalbaljetmedia/laravel-score-matcher",
+    "homepage": "https://github.com/pascalbaljetmedia/laravel-specifications",
     "license": "MIT",
     "authors": [
         {
@@ -18,7 +21,7 @@
     ],
     "require": {
         "php": "~7.0",
-        "pbmedia/score-matcher": "dev-master"
+        "pbmedia/specifications": "dev-master"
     },
     "require-dev": {
         "orchestra/testbench": "^3.3",
@@ -28,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Pbmedia\\ScoreMatcher\\Laravel\\": "src"
+            "Pbmedia\\Specifications\\Laravel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Pbmedia\\ScoreMatcher\\Laravel\\Tests\\": "tests"
+            "Pbmedia\\Specifications\\Laravel\\Tests\\": "tests"
         }
     },
     "scripts": {

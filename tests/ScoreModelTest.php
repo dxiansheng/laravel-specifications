@@ -1,11 +1,11 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
-use Pbmedia\ScoreMatcher\AttributeScore;
-use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
-use Pbmedia\ScoreMatcher\Laravel\Models\ScoreModel;
-use Pbmedia\ScoreMatcher\Laravel\Tests\ProductModel;
+use Pbmedia\Specifications\AttributeScore;
+use Pbmedia\Specifications\Laravel\Models\AttributeModel;
+use Pbmedia\Specifications\Laravel\Models\ScoreModel;
+use Pbmedia\Specifications\Laravel\Tests\ProductModel;
 
 class ScoreModelTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ScoreModelTest extends TestCase
         $macbookProduct->specifications()->set($memoryAttribute, $memoryScore);
         $macbookProduct->save();
 
-        $this->seeInDatabase('score_matcher_scores', [
+        $this->seeInDatabase('specifications_scores', [
             'id'               => 1,
             'attribute_id'     => 1,
             'specifiable_type' => app(ProductModel::class)->getMorphClass(),
@@ -67,7 +67,7 @@ class ScoreModelTest extends TestCase
         $macbookProduct->specifications()->add(new AttributeScore($screenSizeAttribute, $screenScore));
         $macbookProduct->save();
 
-        $this->seeInDatabase('score_matcher_scores', [
+        $this->seeInDatabase('specifications_scores', [
             'id'               => 1,
             'attribute_id'     => 1,
             'specifiable_type' => app(ProductModel::class)->getMorphClass(),
@@ -75,7 +75,7 @@ class ScoreModelTest extends TestCase
             'value'            => 4096,
         ]);
 
-        $this->seeInDatabase('score_matcher_scores', [
+        $this->seeInDatabase('specifications_scores', [
             'id'               => 2,
             'attribute_id'     => 2,
             'specifiable_type' => app(ProductModel::class)->getMorphClass(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pbmedia\ScoreMatcher\Laravel\Tests;
+namespace Pbmedia\Specifications\Laravel\Tests;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -18,12 +18,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'prefix'   => '',
         ]);
 
-        include_once __DIR__ . '/../database/migrations/create_score_matcher_attributes_table.php.stub';
-        include_once __DIR__ . '/../database/migrations/create_score_matcher_scores_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_specifications_attributes_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_specifications_scores_table.php.stub';
         include_once __DIR__ . '/create_products_table.php';
 
-        (new \CreateScoreMatcherAttributesTable)->up();
-        (new \CreateScoreMatcherScoresTable)->up();
+        (new \CreateSpecificationsAttributesTable)->up();
+        (new \CreateSpecificationsScoresTable)->up();
         (new \CreateProductsTable)->up();
     }
 }

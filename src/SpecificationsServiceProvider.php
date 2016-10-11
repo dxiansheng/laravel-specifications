@@ -12,15 +12,17 @@ class SpecificationsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $timestamp = date('Y_m_d_His', time());
-
         if (!class_exists('CreateSpecificationsAttributesTable')) {
+            $timestamp = date('Y_m_d_His', time());
+
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_specifications_attributes_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_attributes_table.php'),
             ], 'migrations');
         }
 
         if (!class_exists('CreateSpecificationsScoresTable')) {
+            $timestamp = date('Y_m_d_His', time() + 1);
+
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_specifications_scores_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_scores_table.php'),
             ], 'migrations');

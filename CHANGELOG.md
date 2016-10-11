@@ -1,3 +1,6 @@
+### 1.0.4
+- Migration fixes
+
 ### 1.0.3
 - Fixed a naming issue with the migrations
 - README.md enhancements

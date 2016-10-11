@@ -17,6 +17,6 @@ class CreateSpecificationsAttributesTable extends Migration
 
     public function down()
     {
-        Schema::drop('score_matcher_attributes');
+        Schema::drop('specifications_attributes');
     }
 }

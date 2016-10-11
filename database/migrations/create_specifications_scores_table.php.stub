@@ -17,12 +17,12 @@ class CreateSpecificationsScoresTable extends Migration
 
             $table->foreign('attribute_id')
                 ->references('id')
-                ->on('score_matcher_attributes');
+                ->on('specifications_attributes');
         });
     }
 
     public function down()
     {
-        Schema::drop('score_matcher_scores');
+        Schema::drop('specifications_scores');
     }
 }

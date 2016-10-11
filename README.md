@@ -151,7 +151,7 @@ $attributeScore->getScoreValue();
 
 ```
 
-Now let's focus on the ```Matcher``` service. To use this you have to provide the service two kinds of data. Firstly, you have to add products to the service (or other models which implement the ```CanBeSpecified``` interface). Secondly, you have to add 'criteria', just like you've added to the products. Since the service itself also implement the ```CanBeSpecified``` interface, this works exactly the same by using the ```specifications()``` method.
+Now let's focus on the ```Matcher``` service. You have to provide the service with two kinds of data. Firstly, you have to add products to the service (or other models which implement the ```CanBeSpecified``` interface). Secondly, you have to add 'criteria', just like you've added to the products. Since the service itself also implement the ```CanBeSpecified``` interface, this works exactly the same by using the ```specifications()``` method.
 
 In this example we will be using the MacBook products again. Remember we've specified the Internal Memory of these products. Say you are looking for a notebook with 16 GB of Internal Memory, but unfortunately, these notebook do not exist in our database. The matcher service will sort the products based on which ones are most closely to the criteria.
 
@@ -184,7 +184,7 @@ $matcher->specifications()->set(
 
 // now let the service do its magic!
 
-$products = $matcher->get();
+$products = $matcher->get(); // returns a Collection instance
 
 // prints the MacBook Pro
 var_dump($products[0]);
@@ -192,6 +192,8 @@ var_dump($products[0]);
 // print the MacBook Air
 var_dump($products[1]);
 ```
+
+The MacBook Pro is the first element in the array since it comes closer to the given specifications than the MacBook Air. You can add as many specifications as you wish, each are treated equally important in the comparison.
 
 ## Change log
 

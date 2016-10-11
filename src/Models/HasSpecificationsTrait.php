@@ -3,6 +3,8 @@
 namespace Pbmedia\Specifications\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Pbmedia\Specifications\AttributeScore;
+use Pbmedia\Specifications\Interfaces\CanBeSpecified;
 use Pbmedia\Specifications\Specifications;
 
 trait HasSpecificationsTrait
@@ -12,7 +14,7 @@ trait HasSpecificationsTrait
      *
      * @var string
      */
-    protected $scoreModelClass = ScoreModel::class;
+    protected static $scoreModelClass = ScoreModel::class;
 
     /**
      * Instance of Specifications.
@@ -47,7 +49,7 @@ trait HasSpecificationsTrait
      */
     public function Scores(): MorphMany
     {
-        return $this->morphMany($this->scoreModelClass, 'specifiable');
+        return $this->morphMany(static::$scoreModelClass, 'specifiable');
     }
 
     /**
@@ -57,11 +59,11 @@ trait HasSpecificationsTrait
      */
     public static function bootHasSpecificationsTrait()
     {
-        static::saved(function ($canBeSpecified) {
+        static::saved(function (CanBeSpecified $canBeSpecified) {
             $scoreIds = $canBeSpecified->Scores->pluck('id');
 
             if ($scoreIds->count() > 0) {
-                app($this->scoreModelClass)->whereIn('id', $scoreIds)->delete();
+                app(static::$scoreModelClass)->whereIn('id', $scoreIds)->delete();
             }
 
             $attributScoreCollection = $canBeSpecified->specifications()->all();
@@ -70,12 +72,12 @@ trait HasSpecificationsTrait
                 return;
             }
 
-            $attributScoreCollection->map(function ($attributeScore) {
+            $attributScoreCollection->map(function (AttributeScore $attributeScore) {
                 return [
                     'attribute_id' => $attributeScore->getAttribute()->id,
                     'value'        => $attributeScore->getScoreValue(),
                 ];
-            })->each(function ($scoreModelAttributes) use ($canBeSpecified) {
+            })->each(function (array $scoreModelAttributes) use ($canBeSpecified) {
                 $canBeSpecified->Scores()->create($scoreModelAttributes);
             });
         });

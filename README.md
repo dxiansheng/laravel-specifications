@@ -79,11 +79,11 @@ Let's think about the specifications you want to attach to your product, for exa
 
 use Pbmedia\ScoreMatcher\Laravel\Models\AttributeModel;
 
-$diskCapacity = AttributeModel::create(['name' => 'Disk Capacity']);
+$diskCapacity = AttributeModel::create(['name' => 'Disk Capacity in GB']);
 
 // or use the 'createWithName' helper method:
 
-$internalMemory = AttributeModel::createWithName('Internal Memory');
+$internalMemory = AttributeModel::createWithName('Internal Memory in MB');
 ```
 
 Now you can give your products 'scores':
@@ -97,13 +97,13 @@ $macbookAir = Product::whereName('MacBook Air')->first();
 $macbookPro = Product::whereName('MacBook Pro')->first();
 
 $macbookAir->specifications()->set(
-    $diskCapacity, new ScoreModel(['value' => 4096])
+    $internalMemory, new ScoreModel(['value' => 4096])
 );
 
 // or use the 'withValue' helper method:
 
 $macbookPro->specifications()->set(
-    $diskCapacity, ScoreModel::withValue(8192)
+    $internalMemory, ScoreModel::withValue(8192)
 );
 
 // don't forget to save the products!
@@ -140,6 +140,26 @@ public function all(): Collection;
 
 // count the number of AttributeScore objects
 public function count(): int;
+
+```
+
+An ```AttributeScore``` object combines an Attribute object with a Score object and has only three methods available:
+
+```php
+
+$diskCapacity = new AttributeModel(['name' => 'Disk Capacity in GB']);
+$size = new ScoreModel(['value' => 256]);
+
+$attributeScore = new AttributeScore($diskCapacity, $size);
+
+// returns the AttributeModel
+$attributeScore->getAttribute();
+
+// returns the ScoreModel
+$attributeScore->getScore();
+
+// returns 256
+$attributeScore->getScoreValue();
 
 ```
 

@@ -112,6 +112,37 @@ $macbookAir->save();
 $macbookPro->save();
 ```
 
+The ```specifications()``` method returns a ```Specifications``` class which has the following methods available:
+
+```php
+
+// add a AttributeScore object to the specifications
+public function add(AttributeScore $attributeScore): Specifications;
+
+// helper method to add multiple AttributeScore objects at once
+public function addMany(array $attributeScores = []): Specifications;
+
+// does the same as the 'add' method, but generates the AttributeScore object
+// automatically based on the given Attribute and Score objects
+public function set(Attribute $attribute, Score $score): Specifications;
+
+// returns a boolean wether the given Attribute is present
+public function has(Attribute $attribute): bool;
+
+// returns the AttributeScore object based on the given Attribute object
+public function get(Attribute $attribute): AttributeScore;
+
+// forgets the AttributeScore object based on the given Attribute object
+public function forget(Attribute $attribute): Specifications;
+
+// returns a Collection object containing all AttributeScore objects
+public function all(): Collection;
+
+// count the number of AttributeScore objects
+public function count(): int;
+
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

@@ -16,13 +16,13 @@ class SpecificationsServiceProvider extends ServiceProvider
 
         if (!class_exists('CreateSpecificationsAttributesTable')) {
             $this->publishes([
-                __DIR__ . '/../resources/migrations/create_specifications_attributes_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_attributes_table.php'),
+                __DIR__ . '/../database/migrations/create_specifications_attributes_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_attributes_table.php'),
             ], 'migrations');
         }
 
         if (!class_exists('CreateSpecificationsScoresTable')) {
             $this->publishes([
-                __DIR__ . '/../resources/migrations/create_specifications_scores_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_scores_table.php'),
+                __DIR__ . '/../database/migrations/create_specifications_scores_table.php.stub' => database_path('migrations/' . $timestamp . '_create_specifications_scores_table.php'),
             ], 'migrations');
         }
     }

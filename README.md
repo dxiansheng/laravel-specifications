@@ -19,7 +19,6 @@ $ composer require pbmedia/laravel-specifications
 Add the service provider and facade to your ```app.php``` config file:
 
 ``` php
-
 // Laravel 5: config/app.php
 
 'providers' => [
@@ -66,7 +65,6 @@ use Pbmedia\Specifications\Laravel\Models\AttributeModel;
 $diskCapacity = AttributeModel::create(['name' => 'Disk Capacity in GB']);
 
 // or use the 'createWithName' helper method:
-
 $internalMemory = AttributeModel::createWithName('Internal Memory in MB');
 ```
 
@@ -83,13 +81,11 @@ $macbookAir->specifications()->set(
 );
 
 // or use the 'withValue' helper method:
-
 $macbookPro->specifications()->set(
     $internalMemory, ScoreModel::withValue(8192)
 );
 
 // don't forget to save the products!
-
 $macbookAir->save();
 $macbookPro->save();
 ```
@@ -158,12 +154,10 @@ $matcher->addCandidate($macbookAir);
 $matcher->addCandidate($macbookPro);
 
 // you can also use the 'addCandidates' helper method:
-
 $matcher->addCandidates($macbookAir, $macbookPro);
 $matcher->addCandidates([$macbookAir, $macbookPro]);
 
 // now provide some criteria.
-
 $memoryAttribute = AttributeModel::whereName('Internal Memory in MB')->first();
 $sixteenGigabytesScore = ScoreModel::withValue(16384);
 
@@ -173,7 +167,6 @@ $matcher->specifications()->set(
 );
 
 // now let the service do its magic!
-
 $products = $matcher->get(); // returns a Collection instance
 
 // prints the MacBook Pro

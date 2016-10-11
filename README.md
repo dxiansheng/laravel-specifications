@@ -6,7 +6,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-score-matcher.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-score-matcher)
 [![Total Downloads](https://img.shields.io/packagist/dt/pbmedia/laravel-score-matcher.svg?style=flat-square)](https://packagist.org/packages/pbmedia/laravel-score-matcher)
 
-This Laravel package provides the ability to attach 'scores' to your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself.
+This Laravel package provides the ability to 'specify' your Eloquent models. It comes with a 'matcher' service that can sort collections of models based on 'criteria' you provide. Confused? Take a look at the example which almost speaks for itself.
 
 ## Install
 
@@ -74,7 +74,7 @@ $diskCapacity = AttributeModel::create(['name' => 'Disk Capacity in GB']);
 $internalMemory = AttributeModel::createWithName('Internal Memory in MB');
 ```
 
-With the ```ScoreModel```, you can attach a value to an ```AttributeModel``` and add it to the specifications of your product:
+With the ```ScoreModel```, you can bind a value to an ```AttributeModel``` and add it to the specifications of your product:
 
 ``` php
 <?php
